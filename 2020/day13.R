@@ -23,15 +23,13 @@ buses[which(time==0)] * (step - timestamp)
 
 # part 2 ------------------------------------------------------------------
 
-w <- which(roll!="x")
-lrange <- length(roll)
+offset <- which(roll!="x") - 1
 step <- buses[1]
 repeat {
-    trange <- seq(step, step + lrange)
-    wait <- map2_dbl(trange[w], buses, ~.x %% .y)
+    wait <- map2_dbl(step + offset, buses, ~.x %% .y)
     if(all(wait==0)) break
     step <- step + prod(buses[wait==0])
 }
 
-# options(scipen = 999)
+options(scipen = 14)
 step
